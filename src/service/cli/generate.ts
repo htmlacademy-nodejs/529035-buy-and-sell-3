@@ -1,15 +1,13 @@
 'use strict';
 
-const fs = require(`fs`);
-const {
-  getRandomInt,
-  shuffle,
-} = require(`../../utils`);
+import * as fs from 'fs';
+import {Command} from "./command";
+import {getRandomInt, shuffle, getRandomArray} from "../../utils";
 
-const DEFAULT_COUNT = 1;
-const FILE_NAME = `../mocks.json`;
+const DEFAULT_COUNT: number = 1;
+const FILE_NAME: string = `../mocks.json`;
 
-const TITLES = [
+const TITLES: string[] = [
   `Продам книги Стивена Кинга`,
   `Продам новую приставку Sony Playstation 5`,
   `Продам отличную подборку фильмов на VHS`,
@@ -17,7 +15,7 @@ const TITLES = [
   `Куплю породистого кота`,
 ];
 
-const SENTENCES = [
+const SENTENCES: string[] = [
   `Товар в отличном состоянии.`,
   `Пользовались бережно и только по большим праздникам.`,
   `Продаю с болью в сердце...`,
@@ -30,7 +28,7 @@ const SENTENCES = [
   `При покупке с меня бесплатная доставка в черте города.`,
 ];
 
-const CATEGORIES = [
+const CATEGORIES: string[] = [
   `Книги`,
   `Разное`,
   `Посуда`,
@@ -39,27 +37,36 @@ const CATEGORIES = [
   `Журналы`,
 ];
 
-const OfferType = {
+const OfferType: {[key: string]: string} = {
   offer: `offer`,
   sale: `sale`,
 };
 
 
-const SumRestrict = {
+const SumRestrict: {[key: string]: number} = {
   min: 1000,
   max: 100000,
 };
 
-const PictureRestrict = {
+const PictureRestrict: {[key: string]: number} = {
   min: 1,
   max: 16,
 };
 
-const getPictureFileName = (number) => number > 10 ? `item${number}.jpg` : `item0${number}.jpg`;
+const getPictureFileName = (number: number): string => number > 10 ? `item${number}.jpg` : `item0${number}.jpg`;
 
-const generateOffers = (count) => (
+type Offer = {
+  categories: string,
+  description: string,
+  picture: string,
+  title: string,
+  type: string,
+  sum: number
+}
+
+const generateOffers = (count:number): Array<Offer> => (
   Array(count).fill({}).map(() => ({
-    category: [CATEGORIES[getRandomInt(0, CATEGORIES.length - 1)]],
+    categories: getRandomArray(CATEGORIES).join(`, `),
     description: shuffle(SENTENCES).slice(1, 5).join(` `),
     picture: getPictureFileName(getRandomInt(PictureRestrict.min, PictureRestrict.max)),
     title: TITLES[getRandomInt(0, TITLES.length - 1)],
@@ -68,12 +75,16 @@ const generateOffers = (count) => (
   }))
 );
 
-module.exports = {
-  name: `--generate`,
-  run(args) {
+export class Generate extends Command {
+  constructor(name: string) {
+    super(name);
+    console.log(`Создан Генерейт`);
+  }
+
+  run(args?: any) {
     const [count] = args;
-    const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
-    const content = JSON.stringify(generateOffers(countOffer));
+    const countOffer: number = Number.parseInt(count, 10) || DEFAULT_COUNT;
+    const content: string = JSON.stringify(generateOffers(countOffer));
 
     fs.writeFile(FILE_NAME, content, (err) => {
       if (err) {
@@ -82,6 +93,5 @@ module.exports = {
 
       return console.log(`Operation success. File created.`);
     });
-
   }
-};
+}

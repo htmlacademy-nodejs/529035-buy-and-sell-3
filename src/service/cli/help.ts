@@ -1,7 +1,11 @@
 'use strict';
+import {Command} from "./command";
 
-module.exports = {
-  name: `--help`,
+export class Help extends Command {
+  constructor(name: string) {
+    super(name);
+  }
+
   run() {
     const text = `
     Программа запускает http-сервер и формирует файл с данными для api.
@@ -14,5 +18,6 @@ module.exports = {
     `;
 
     console.log(text);
+
   }
-};
+}
