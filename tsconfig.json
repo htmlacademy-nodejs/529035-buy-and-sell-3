@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+      "experimentalDecorators": true,
+    "module": "commonjs", //импорт модулей преобразуется в commonjs (node require)
+    "esModuleInterop": true, // Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports.
+    "emitDecoratorMetadata": true, //Enables experimental support for emitting type metadata for decorators which works with the module reflect-metadata.
+    "target": "es2017", //компилируем в es2017
+    "noImplicitAny": true, //In some cases where no type annotations are present, TypeScript will fall back to a type of any for a variable when it cannot infer the type.
+    "moduleResolution": "node", //Specify the module resolution strategy: ‘node’ (Node.js) or ‘classic’ (used in TypeScript before the release of 1.6). You probably won’t need to use classic in modern code.
+    "sourceMap": true, //генерировать sourceMaps, нужно для отладки
+    "outDir": "dist", //проект билдится из папки /src в папку /dist
+    "baseUrl": ".", //Lets you set a base directory to resolve non-absolute module names.
+    "paths": { //paths lets you declare how TypeScript should resolve an import in your require/imports
+      "*": [
+        "node_modules/*"
+      ]
+    },
+    "typeRoots": [ // This config file will include types packages
+      "node_modules/@types"
+    ],
+    "strict": true, // Настройка строгости проверок
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    // "strictBindCallApply": true,
+    "lib": [
+      "es6"
+    ]
+  },
+  "include": [
+    "src/**/*" //указывает что включаться должны только файлы из папки /src
+  ]
+}
