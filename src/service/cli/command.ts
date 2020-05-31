@@ -1,11 +1,4 @@
-'use strict';
-
-export class Command {
+export interface Command {
   name: string;
-
-  constructor(name: string) {
-    this.name = name;
-  }
-
-  run(args?: any): any {}
+  run(args?: any): any;
 }

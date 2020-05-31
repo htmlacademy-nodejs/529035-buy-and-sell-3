@@ -4,9 +4,9 @@ import {Help} from "./help";
 import {Version} from "./version";
 import {Generate} from "./generate";
 
-const help = new Help(`--help`);
-const generate = new Generate(`--generate`);
-const version = new Version(`--version`);
+const help = new Help;
+const generate = new Generate;
+const version = new Version;
 
 export const Cli = {
   [generate.name]: generate,

@@ -1,10 +1,8 @@
 'use strict';
 import {Command} from "./command";
 
-export class Help extends Command {
-  constructor(name: string) {
-    super(name);
-  }
+export class Help implements Command {
+  name = `--help`;
 
   run() {
     const text = `

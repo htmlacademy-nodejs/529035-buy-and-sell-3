@@ -1,8 +1,7 @@
-'use strict';
-
 import * as fs from 'fs';
-import {Command} from "./command";
-import {getRandomInt, shuffle, getRandomArray} from "../../utils";
+import * as typings from '../../typings';
+import { Command } from "./command";
+import { getRandomInt, shuffle, getRandomArray } from "../../utils";
 
 const DEFAULT_COUNT: number = 1;
 const FILE_NAME: string = `../mocks.json`;
@@ -53,18 +52,11 @@ const PictureRestrict: {[key: string]: number} = {
   max: 16,
 };
 
-const getPictureFileName = (number: number): string => number > 10 ? `item${number}.jpg` : `item0${number}.jpg`;
+const getPictureFileName = (number: number): string => {
+  return number > 10 ? `item${ number }.jpg` : `item0${ number }.jpg`;
+};
 
-type Offer = {
-  categories: string,
-  description: string,
-  picture: string,
-  title: string,
-  type: string,
-  sum: number
-}
-
-const generateOffers = (count:number): Array<Offer> => (
+const generateOffers = (count:number): Array<typings.Offer> => (
   Array(count).fill({}).map(() => ({
     categories: getRandomArray(CATEGORIES).join(`, `),
     description: shuffle(SENTENCES).slice(1, 5).join(` `),
@@ -75,11 +67,8 @@ const generateOffers = (count:number): Array<Offer> => (
   }))
 );
 
-export class Generate extends Command {
-  constructor(name: string) {
-    super(name);
-    console.log(`Создан Генерейт`);
-  }
+export class Generate implements Command {
+  name = `--generate`;
 
   run(args?: any) {
     const [count] = args;

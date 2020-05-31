@@ -1,16 +1,13 @@
 'use strict';
 import {Command} from "./command";
 
-export class Version extends Command {
-  packageJsonFile: {[key: string]: string};
+const packageJsonFile: {[key: string]: string} = require(`../../../package.json`);
 
-  constructor(name: string) {
-    super(name);
-    this.packageJsonFile = require(`../../../package.json`);
-  }
+export class Version implements Command {
+  name = `--version`;
 
   run() {
-    const version:string = this.packageJsonFile.version;
+    const version:string = packageJsonFile.version;
     console.info(version);
   }
 
