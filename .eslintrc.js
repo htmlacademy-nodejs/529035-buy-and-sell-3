@@ -19,6 +19,5 @@ module.exports = {
     "no-empty-function": "off",
     "no-useless-constructor": "off",
     "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/quotes": "off",
   },
 };

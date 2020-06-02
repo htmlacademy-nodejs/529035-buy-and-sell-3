@@ -53,7 +53,7 @@ const PictureRestrict: {[key: string]: number} = {
 };
 
 const getPictureFileName = (number: number): string => {
-  return number > 10 ? `item${ number }.jpg` : `item0${ number }.jpg`;
+  return number > 10 ? `item${number}.jpg` : `item0${number}.jpg`;
 };
 
 const generateOffers = (count:number): Array<typings.Offer> => (
